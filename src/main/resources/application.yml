@@ -1,0 +1,31 @@
+spring:
+  #配置rabbitMq 服务器
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: username
+    password: password
+    publisher-returns: true
+    listener:
+      simple:
+        default-requeue-rejected: false
+        retry:
+          # 开启消费重试机制
+          enabled: true
+          # 最大重试次数。默认为 3
+          max-attempts: 3
+          # 重试间隔，单位为毫秒。默认为 1000 。
+          initial-interval: 1000
+      direct:
+        acknowledge-mode: manual
+      type: simple
+    template:
+      # 对应 RabbitProperties.Retry 类
+      retry:
+        enabled: true # 开启发送机制
+        max-attempts: 3 # 最大重试次数。默认为 3 。
+        initial-interval: 1000 # 重试间隔，单位为毫秒。默认为 1000 。
+    #    配置topic
+    topic: T1,T2,T3,T4,T5
+    #    配置死信队列
+    dead-letter: DEAD_LETTER1
